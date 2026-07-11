@@ -1,19 +1,19 @@
-class Autor {
+class Livros {
 
     #id;
-    titulo;
-    #id_ISBN;
-    dataAno;
-    qtd_Disp;
-    #id_Autor;
+    #titulo;
+    #ISBN;
+    #ano;
+    #qtd_disponivel;
+    #id_autor
 
-    constructor(titulo, id_ISBN, dataAno, qtd_Disp, id_Autor,  id = null) {
+    constructor(titulo, ISBN, ano, qtd_disponivel, id_autor, id = null) {
         this.#id = id;
-        this.titulo = titulo;
-        this.#id_ISBN = id_ISBN;
-        this.dataAno = dataAno;
-        this.qtd_Disp = qtd_Disp;
-        this.#id_Autor = id_Autor;
+        this.#titulo = titulo;
+        this.#ISBN = ISBN;
+        this.#ano = ano;
+        this.#qtd_disponivel = qtd_disponivel;
+        this.#id_autor = id_autor;
     }
 
     // Getters
@@ -22,44 +22,45 @@ class Autor {
     }
 
     get titulo() {
-        return this.titulo;
+        return this.#titulo;
     }
 
-    get id_ISBN() {
-        return this.#id_ISBN;
+    get ISBN() {
+        return this.#ISBN;
     }
 
-    get dataAno() {
-        return this.dataAno;
-    }
-    
-    get qtd_Disp() {
-        return this.qtd_Disp;
+    get ano() {
+        return this.#ano;
     }
 
-    get id_Autor() {
-        return this.#id_Autor;
+    get qtd_disponivel() {
+        return this.#qtd_disponivel;
+    }
+
+    get id_autor() {
+        return this.#id_autor;
     }
 
     // Setters
-    set titulo(newTitle) {
-        this.titulo = newTitle;
+
+    set titulo(novoTitulo) {
+        this.#titulo = novoTitulo;
     }
 
-    set id_ISBN(newISBN) {
-        this.#id_ISBN = newISBN;
+    set ISBN(novoISBN) {
+        this.#ISBN = novoISBN;
     }
 
-    set dataAno(newYear) {
-        this.dataAno = newYear;
+    set ano(novoAno) {
+        this.#ano = novoAno;
+    }
+
+    set qtd_disponivel(novoQtd_disponivel) {
+        this.#qtd_disponivel = novoQtd_disponivel;
     }
     
-    set qtd_Disp(newAvailability) {
-        this.qtd_Disp = newAvailability;
-    }
-
-    set id_Autor(newAuthor) {
-        this.#id_Autor = newAuthor;
+    set id_autor(novoId_autor) {
+        this.#id_autor = novoId_autor;
     }
 
 }
