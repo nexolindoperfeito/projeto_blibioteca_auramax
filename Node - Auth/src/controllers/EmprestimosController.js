@@ -1,10 +1,10 @@
-import EmprestimosService from "../services/EmprestimosService.js";
-import Emprestimos from "../models/Emprestimos.js";
+import emprestimosService from "../services/emprestimoService.js";
+import Emprestimos from "../models/emprestimos.js";
 
-const emprestimosController = {
+const EmprestimosController = {
     selecionar: async (req, res) => {
         try {
-            const resultado = await EmprestimosService.recuperarEmprestimos();
+            const resultado = await emprestimosService.recuperarEmprestimos();
 
             res.status(200).json({
                 message: "Emprestimos recuperados com sucesso",
@@ -23,7 +23,7 @@ const emprestimosController = {
         const emprestimo_Id = Number(req.params.id);
 
         try {
-            const Emprestimo = await EmprestimosService.recuperarEmprestimoPorId(emprestimo_Id);
+            const Emprestimo = await emprestimosService.recuperarEmprestimoPorId(emprestimo_Id);
 
             if (!Emprestimo) {
                 return res.status(404).json({
@@ -48,19 +48,21 @@ const emprestimosController = {
         const emprestimo_Id = Number(req.params.id);
 
         try {
-            const resultado = await EmprestimosService.removerEmprestimo(emprestimo_Id);
+            const resultado = await emprestimosService.removerEmprestimo(emprestimo_Id);
 
             if(resultado.affectedRows === 0) {
-                throw new Error("Usuário não encontrado");
+                return res.status(404).json({
+                    message: "Emprestimo não encontrado"
+                });
             }
 
             res.status(200).json({
-                message: "Usuário removido com sucesso"
+                message: "emprestimo removido com sucesso"
             });
         } catch (error) {
             console.error(error);
             res.status(500).json({
-                message: "Erro ao remover usuário",
+                message: "Erro ao remover emprestimo",
                 error: error.message
             });
         }
@@ -70,7 +72,7 @@ const emprestimosController = {
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (id_user.trim() === "" || id_livro.trim() === "" || data_emp.trim() === "" || data_devo.trim() === "") {
+            if (!id_user || !id_livro || !data_emp || !data_devo) {
                 return res.status(400).json({
                     message: "campos obrigatórios não informados"
                 });
@@ -78,7 +80,7 @@ const emprestimosController = {
 
             const novoEmprestimo = new Emprestimos(id_user, id_livro, data_emp, data_devo)
 
-            const resultado = await EmprestimosService.criarEmprestimo(novoEmprestimo);
+            const resultado = await emprestimosService.criarEmprestimo(novoEmprestimo);
 
             res.status(201).json({
                 message: "emprestimo criado com sucesso",
@@ -102,18 +104,20 @@ const emprestimosController = {
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (id_user.trim() === "" || id_livro.trim() === "" || data_emp.trim() === "" || data_devo.trim() === "") {
+            if ( !id_user || !id_livro || !data_emp || !data_devo) {
                 return res.status(400).json({
-                    message: "campos não obrigatórios informados "
+                    message: "campos obrigatórios não informados"
                 });
             }
 
             const emprestimoAtualizado = new Emprestimos(id_user, id_livro, data_emp, data_devo);
 
-            const resultado = await EmprestimosService.atualizarEmprestimo(emprestimo_Id, emprestimoAtualizado);
+            const resultado = await emprestimosService.atualizarEmprestimo(emprestimo_Id, emprestimoAtualizado);
 
             if (resultado.affectedRows === 0) {
-                throw new Error("emprestimo não encontrado");
+                return res.status(404).json({
+                    message: "emprestimo não encontrado"
+                })
             }
 
             res.status(200).json({
@@ -129,4 +133,4 @@ const emprestimosController = {
     }
 };
 
-export default emprestimosController;
+export default EmprestimosController;
