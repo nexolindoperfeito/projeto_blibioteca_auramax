@@ -6,31 +6,28 @@ const emprestimosRepository = {
         const rows = await pool.execute(sql);
         return rows[0];
     },
-    selecionarPorId: async (userId) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE id = ?;';
-        const rows = await pool.execute(sql, [userId]);
+    selecionarPorId: async (emprestimoId) => {
+        const sql = 'SELECT id, dt_emprestimo, dt_devolucao, id_livro, id_usuario FROM emprestimo WHERE id = ?;';
+        const rows = await pool.execute(sql, [emprestimoId]);
         return rows[0];
     },
-    selecionarPorEmail: async (email) => {
-        const sql = 'SELECT id, name, email, password FROM users WHERE email = ?;';
-        const rows = await pool.execute(sql, [email]);
-        return rows[0][0];
-    },
-    deletar: async (userId) => {
-        const sql = 'DELETE FROM users WHERE id = ?;';
-        const resultado = await pool.execute(sql, [userId]);
+    deletar: async (emprestimoId) => {
+        const sql = 'DELETE FROM emprestimo WHERE id = ?;';
+        const resultado = await pool.execute(sql, [emprestimoId]);
         return resultado[0];
     },
-    criar: async (name, email, password) => {
-        const sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?);';
-        const resultado = await pool.execute(sql, [name.trim(), email.trim().toLowerCase(), password]);
+    criar: async (dt_emprestimo, dt_devolucao, id_livro, id_usuario) => {
+        const sql = 'INSERT INTO emprestimo (dt_emprestimo, dt_devolucao, id_livro, id_usuario) VALUES (?, ?, ?, ?);';
+        const resultado = await pool.execute(sql, [dt_emprestimo, dt_devolucao, id_livro, id_usuario]);
         return resultado[0];
     },
-    atualizar: async (userId, name, email, password) => {
-        const sql = 'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?;';
-        const resultado = await pool.execute(sql, [name.trim(), email.trim().toLowerCase(), password, userId]);
+    atualizar: async (emprestimoId, dt_emprestimo, dt_devolucao, id_livro, id_usuario) => {
+        console.log(emprestimoId, dt_emprestimo, dt_devolucao, id_livro, id_usuario);
+        
+        const sql = 'UPDATE emprestimo SET dt_emprestimo = ?, dt_devolucao = ?, id_livro = ?, id_usuario = ? WHERE id = ?;';
+        const resultado = await pool.execute(sql, [dt_emprestimo, dt_devolucao, id_livro, id_usuario, emprestimoId]);
         return resultado[0];
     }
 }
 
-export default userRepository;
+export default emprestimosRepository;

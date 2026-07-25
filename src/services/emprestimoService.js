@@ -1,32 +1,56 @@
-import pool from '../configs/Database.js';
+import bcrypt from "bcrypt";
+import emprestimosRepository from "../repositories/emprestimosRepository.js";  
 
-const emprestimosRepository = {
-    selecionar: async () => {
-        const sql = 'SELECT dt_emprestimo, dt_devolucao, id_livro, id_usuario FROM emprestimos ORDER BY id_usuario DESC;';
-        const rows = await pool.execute(sql);
-        return rows[0];
+const emprestimoService = {
+    recuperarEmprestimo: async () => {
+        try {
+            const resultado = await emprestimosRepository.selecionar();
+            return resultado;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error("Erro ao recuperar Livros: " + error.message);
+        }
     },
-    selecionarPorId: async (Id) => {
-        const sql = 'SELECT dt_emprestimo, dt_devolucao, id_livro, id_usuario FROM emprestimos WHERE id_usuario = ?;';
-        const rows = await pool.execute(sql, [Id]);
-        return rows[0][0];
+    recuperarEmprestimoPorId: async (emprestimoId) => {
+        try {
+            const resultado = await emprestimosRepository.selecionarPorId(emprestimoId);
+            return resultado;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error("Erro ao recuperar livro por ID: " + error.message);
+        }
     },
+    removerEmprestimo: async (emprestimoId) => {
+        try {
+            const resultado = await emprestimosRepository.deletar(emprestimoId);
+            return resultado;
+        } catch (error) {
+            console.error(error);
+            throw new Error("Erro ao remover usuário: " + error.message);
+        }
+    },
+    criarEmprestimo: async (emprestimo) => {
+        try {
+            console.log(emprestimo.dt_emprestimo, emprestimo.dt_devolucao, emprestimo.id_livro, emprestimo.id_usuario);
 
-    deletar: async (emprestimoId) => {
-        const sql = 'DELETE FROM emprestimos WHERE id_usuario = ?;';
-        const rows = await pool.execute(sql, [Id]);
-        return resultado[0];
+            const resultado = await emprestimosRepository.criar(emprestimo.dt_emprestimo, emprestimo.dt_devolucao, emprestimo.id_livro, emprestimo.id_usuario);
+            return resultado;
+        } catch (error) {
+            console.error(error);
+            throw new Error("Erro ao criar livro: " + error.message);
+        }
     },
-    criar: async ( dt_emprestimo, dt_devolucao, id_livro, id_usuario ) => {
-        const sql = 'INSERT INTO emprestimo ( dt_emprestimo, dt_devolucao, id_livro, id_usuario ) VALUES (?, ?, ?, ?)';
-        const resultado = await pool.execute(sql, [dt_emprestimo, dt_devolucao, id_livro, id_usuario]);
-        return resultado[0];
-    },
-    atualizar: async ( dt_emprestimo, dt_devolucao, id_livro, id_usuario) => {
-        const sql = 'UPDATE emprestimos SET dt_emprestimo = ?, dt_devolucao = ?, id_livro = ?, id_usuario WHERE id_usuario = ?;';
-        const resultado = await pool.execute(sql, [dt_emprestimo, dt_devolucao, id_livro, id_usuario]);
-        return resultado[0];
-    }
+    atualizarEmprestimo: async (id, emprestimo) => {
+        try {
+            const resultado = await emprestimosRepository.atualizar(id, emprestimo.dt_emprestimo, emprestimo.dt_devolucao, emprestimo.id_livro, emprestimo.id_usuario);
+            return resultado;
+        } catch (error) {
+            console.error(error);
+            throw new Error("Erro ao atualizar livro: " + error.message);
+        }
+    }  
 }
 
-export default emprestimosRepository;
+export default emprestimoService;

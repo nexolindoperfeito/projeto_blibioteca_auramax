@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
-app.use('emprestimos', emprestimosRoutes)
+app.use('/emprestimos', emprestimosRoutes)
 app.use('/livros', LivrosRoutes);
 app.use('/autor', autorRoutes);
 

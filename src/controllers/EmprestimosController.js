@@ -4,7 +4,7 @@ import Emprestimos from "../models/Emprestimos.js";
 const EmprestimosController = {
     selecionar: async (req, res) => {
         try {
-            const resultado = await emprestimosService.recuperarEmprestimos();
+            const resultado = await emprestimosService.recuperarEmprestimo();
 
             res.status(200).json({
                 message: "Emprestimos recuperados com sucesso",
@@ -68,17 +68,18 @@ const EmprestimosController = {
         }
     },
     criar: async (req, res) => {
-        const { id_user, id_livro, data_emp, data_devo } = req.body;
-
+        const { dt_emprestimo, dt_devolucao, id_livro, id_usuario } = req.body;
+        console.log(dt_emprestimo, dt_devolucao, id_livro, id_usuario);
+        
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if (!id_user || !id_livro || !data_emp || !data_devo) {
+            if (!dt_emprestimo || !dt_devolucao || !id_livro || !id_usuario) {
                 return res.status(400).json({
                     message: "campos obrigatórios não informados"
                 });
             }
 
-            const novoEmprestimo = new Emprestimos(id_user, id_livro, data_emp, data_devo)
+            const novoEmprestimo = new Emprestimos(dt_emprestimo, dt_devolucao, id_livro, id_usuario)
 
             const resultado = await emprestimosService.criarEmprestimo(novoEmprestimo);
 
@@ -100,17 +101,17 @@ const EmprestimosController = {
     atualizar: async (req, res) => {
         const emprestimo_Id = Number(req.params.id);
         
-        const { id_user, id_livro, data_emp, data_devo } = req.body;
+        const { dt_emprestimo, dt_devolucao, id_livro, id_usuario } = req.body;
 
         try {
             // validação simples para garantir que name e email não estejam vazios
-            if ( !id_user || !id_livro || !data_emp || !data_devo) {
+            if ( !dt_emprestimo || !dt_devolucao || !id_livro || !id_usuario ) {
                 return res.status(400).json({
                     message: "campos obrigatórios não informados"
                 });
             }
 
-            const emprestimoAtualizado = new Emprestimos(id_user, id_livro, data_emp, data_devo);
+            const emprestimoAtualizado = new Emprestimos(dt_emprestimo, dt_devolucao, id_livro, id_usuario);
 
             const resultado = await emprestimosService.atualizarEmprestimo(emprestimo_Id, emprestimoAtualizado);
 
