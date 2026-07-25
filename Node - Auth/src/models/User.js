@@ -3,13 +3,13 @@ class User {
     #id;
     #name;
     #email;
-    #password;
+    #telefone;
 
-    constructor(name, email, password, id = null) {
+    constructor(name, email, telefone, id = null) {
         this.#id = id;
         this.#name = name;
         this.#email = email;
-        this.#password = password;
+        this.#telefone = telefone;
     }
 
     // Getters
@@ -25,8 +25,8 @@ class User {
         return this.#email;
     }
 
-    get password() {
-        return this.#password;
+    get telefone() {
+        return this.#telefone;
     }
 
     // Setters
@@ -38,8 +38,8 @@ class User {
         this.#email = newEmail;
     }
 
-    set password(newPassword) {
-        this.#password = newPassword;
+    set telefone(newTelefone) {
+        this.#telefone = newTelefone;
     }
 
 }

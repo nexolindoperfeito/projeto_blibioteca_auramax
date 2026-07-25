@@ -24,7 +24,7 @@ const LivrosController = {
         const id_livros = Number(req.params.id);
 
         try {
-            const Livros = await LivrosService.recuperarLivrosPorId(id_livros);
+            const Livros = await LivrosService.recuperarLivroPorId(id_livros);
 
             if (!Livros) {
                 return res.status(404).json({

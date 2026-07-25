@@ -5,8 +5,8 @@ import authMiddleware from "../middlewares/authMiddleware.js";
 const userRoutes = Router();
 
 userRoutes.post('/', userController.criar);
-userRoutes.put('/:id', authMiddleware, userController.atualizar);
-userRoutes.delete('/:id', authMiddleware, userController.deletar);
+userRoutes.put('/:id', userController.atualizar);
+userRoutes.delete('/:id', userController.deletar);
 userRoutes.get('/', userController.selecionar);
 userRoutes.get('/:id', userController.selecionarPorId);
 

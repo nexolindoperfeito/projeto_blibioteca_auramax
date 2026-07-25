@@ -1,13 +1,13 @@
 class Autor {
 
     #id;
-    nome;
+    #nome;
     #nacionalidade;
     #dataNascimento;
 
     constructor(nome, nacionalidade, dataNascimento, id = null) {
         this.#id = id;
-        this.nome = nome;
+        this.#nome = nome;
         this.#nacionalidade = nacionalidade;
         this.#dataNascimento = dataNascimento;
     }
@@ -18,7 +18,7 @@ class Autor {
     }
 
     get nome() {
-        return this.nome;
+        return this.#nome;
     }
 
     get nacionalidade() {
@@ -31,7 +31,7 @@ class Autor {
 
     // Setters
     set nome(newName) {
-        this.nome = newName;
+        this.#nome = newName;
     }
 
     set nacionalidade(newNationality) {

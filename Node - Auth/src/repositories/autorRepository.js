@@ -7,13 +7,13 @@ const autorRepository = {
         return rows[0];
     },
     selecionarPorId: async (autorId) => {
-        const sql = 'SELECT id, nome, nacionalidade, nascimento FROM autors WHERE id = ?;';
+        const sql = 'SELECT id, nome, nacionalidade, nascimento FROM autor WHERE id = ?;';
         const rows = await pool.execute(sql, [autorId]);
         return rows[0];
     },
     selecionarPorNome: async (nome) => {
         const sql = 'SELECT id, nome, nacionalidade, nascimento FROM autor WHERE nome = ?;';
-        const rows = await pool.execute(sql, [email]);
+        const rows = await pool.execute(sql, [nome]);
         return rows[0][0];
     },
     deletar: async (autorId) => {
@@ -22,13 +22,13 @@ const autorRepository = {
         return resultado[0];
     },
     criar: async (nome, nacionalidade, nascimento) => {
-        const sql = 'INSERT INTO users (nome, nacionalidade, nascimento) VALUES (?, ?, ?);';
+        const sql = 'INSERT INTO autor (nome, nacionalidade, nascimento) VALUES (?, ?, ?);';
         const resultado = await pool.execute(sql, [nome.trim(), nacionalidade.trim().toLowerCase(), nascimento]);
         return resultado[0];
     },
     atualizar: async (autorId, nome, nacionalidade, nascimento) => {
-        const sql = 'UPDATE autors SET nome = ?, nacionalidade = ?, nascimento = ? WHERE id = ?;';
-        const resultado = await pool.execute(sql, [nome.trim(), nacionalidade.trim().toLowerCase(), password, userId]);
+        const sql = 'UPDATE autor SET nome = ?, nacionalidade = ?, nascimento = ? WHERE id = ?;';
+        const resultado = await pool.execute(sql, [nome.trim(), nacionalidade.trim().toLowerCase(), nascimento, autorId]);
         return resultado[0];
     }
 }

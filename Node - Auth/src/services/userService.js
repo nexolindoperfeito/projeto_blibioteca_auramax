@@ -43,7 +43,7 @@ const userService = {
     },
     criarUsuario: async (user) => {
         try {
-            const resultado = await userRepository.criar(user.name, user.email, user.password);
+            const resultado = await userRepository.criar(user.name, user.email, user.telefone);
             return resultado;
         } catch (error) {
             console.error(error);
@@ -52,17 +52,13 @@ const userService = {
     },
     atualizarUsuario: async (user) => {
         try {
-            const resultado = await userRepository.atualizar(user.id, user.name, user.email, user.password);
+            const resultado = await userRepository.atualizar(user.id, user.name, user.email, user.telefone);
             return resultado;
         } catch (error) {
             console.error(error);
             throw new Error("Erro ao atualizar usuário: " + error.message);
         }
     },
-    hashPassword: async (password) => {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        return hashedPassword;
-    }
 }
 
 export default userService;

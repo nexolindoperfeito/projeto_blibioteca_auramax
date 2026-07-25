@@ -4,7 +4,7 @@ import Autor from "../models/Autor.js";
 const autorController = {
     selecionar: async (req, res) => {
         try {
-            const resultado = await autorService.recuperarAutores();
+            const resultado = await autorService.recuperarAutor();
 
             return res.status(200).json({
                 message: "Autores recuperados com sucesso",
@@ -48,18 +48,16 @@ const autorController = {
         try {
             const { nome, nacionalidade, dataNascimento } = req.body;
 
-            if (!nome || nome.trim() === "") {
+            if (nome.trim() === "" || nacionalidade.trim() === "" || dataNascimento === "") {
                 return res.status(400).json({
-                    message: "O campo nome é obrigatório"
+                    message: "Nome, nacionalidade e dataNascimento são obrigatórios"
                 });
             }
 
             const novoAutor = new Autor(nome, nacionalidade, dataNascimento);
 
             const resultado = await autorService.criarAutor(
-                novoAutor.nome, 
-                novoAutor.nacionalidade, 
-                novoAutor.dataNascimento
+                novoAutor
             );
 
             return res.status(201).json({
@@ -91,10 +89,7 @@ const autorController = {
             const autorAtualizado = new Autor(nome, nacionalidade, dataNascimento, autorId);
 
             const resultado = await autorService.atualizarAutor(
-                autorAtualizado.id,
-                autorAtualizado.nome,
-                autorAtualizado.nacionalidade,
-                autorAtualizado.dataNascimento
+                autorAtualizado
             );
 
             if (resultado.affectedRows === 0) {

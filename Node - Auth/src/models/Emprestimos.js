@@ -1,14 +1,20 @@
 class Emprestimos {
+    #id;
     #id_livro;
     #data_devo;
     #data_emp;
     #id_user;
 
-    constructor (id_user = null, data_emp, data_devo, id_livro = null) {
+    constructor (id_user, data_emp, data_devo, id_livro, id = null) {
+        this.#id = id;
         this.#id_livro = id_livro;
         this.#data_devo = data_devo;
         this.#data_emp = data_emp;
         this.#id_user = id_user; 
+    }
+
+     get id() {
+        return this.#id;
     }
 
     get id_user() {

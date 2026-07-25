@@ -3,10 +3,10 @@ import EmprestimosController from "../controllers/EmprestimosController.js";
 
 const router = express.Router();
 
-router.get("/emprestimos", EmprestimosController.selecionar);
-router.get("/emprestimos/:id", EmprestimosController.selecionarPorId);
-router.post("/emprestimos", EmprestimosController.criar);
-router.put("/emprestimos/:id", EmprestimosController.atualizar);
-router.delete("/emprestimos/:id", EmprestimosController.deletar);
+router.get("/", EmprestimosController.selecionar);
+router.get("/:id", EmprestimosController.selecionarPorId);
+router.post("/", EmprestimosController.criar);
+router.put("/:id", EmprestimosController.atualizar);
+router.delete("/:id", EmprestimosController.deletar);
 
 export default router;
