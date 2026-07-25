@@ -1,5 +1,5 @@
 import emprestimosService from "../services/emprestimoService.js";
-import Emprestimos from "../models/emprestimos.js";
+import Emprestimos from "../models/Emprestimos.js";
 
 const EmprestimosController = {
     selecionar: async (req, res) => {
